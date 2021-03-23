@@ -22,7 +22,7 @@ import struct.GameData;
 import struct.Key;
 import struct.MotionData;
 
-public class PDAFightingICE4H implements AIInterface {
+public class PDAFightingICE4H_MIGver implements AIInterface {
 
 	public Simulator simulator;
 	public Key key;
@@ -72,6 +72,8 @@ public class PDAFightingICE4H implements AIInterface {
 	
 	Logger logger;
 	
+	MotionRecorder motionRecorder;
+	
 	//private double beta;
 
 	//private int[] resultHpDiff;
@@ -113,6 +115,11 @@ public class PDAFightingICE4H implements AIInterface {
 		this.oppMotion = gameData.getMotionData(!playerNumber);
 		
 		logger = new Logger(playerNumber);
+	
+		motionRecorder = new MotionRecorder();
+		
+		//PDA initialize
+		motionRecorder.initPdaForHealth();
 		
 	/*	this.beta = 0;
 		this.resultHpDiff = new int[3];
@@ -129,7 +136,6 @@ public class PDAFightingICE4H implements AIInterface {
 	//TODO
 	@Override
 	public void processing() {
-
 		
 		if (canProcessing()) {
 			
@@ -143,21 +149,9 @@ public class PDAFightingICE4H implements AIInterface {
 			}
 			//TODO need solve
 			if (commandCenter.getSkillFlag()) {
+				key = commandCenter.getSkillKey();
+				//PDA decision
 
-				mcts.runPdaForHealth();
-				//TODO
-//				if (readMotionFLAG == true) {
-//					//TODO PDA read motion file			
-//					mcts.readMotionDataFromFile();	
-//					readMotionFLAG = false;
-//				}
-				System.out.println("decision =" + mcts.decision);
-				if (mcts.decision == false) {
-					key = commandCenter.getSkillKey();					
-				} else {
-					key.empty();
-					commandCenter.commandCall("DASH");
-				}
 			} else {
 				key.empty();
 				commandCenter.skillCancel();
@@ -196,18 +190,41 @@ public class PDAFightingICE4H implements AIInterface {
 				
 				// MCTSによる行動決定
 				Action bestAction = Action.STAND_D_DB_BA;
+				//or decided by PDA's decision
+				float point = (float) Math.random();
+				Action PDAtrueAction = Action.DASH;
+				if (point <= 0.4f) {
+					PDAtrueAction = Action.DASH;				
+				} else if (point > 0.4f && point < 0.6f){
+					PDAtrueAction = Action.JUMP;
+				} else {
+					PDAtrueAction = Action.FORWARD_WALK;
+				}
+
 				if(rootNode == null){
 					mctsPrepare(); // MCTSの下準備を行う
 				}
-				bestAction = mcts.runMcts(); // MCTSの実行
-				if(ableAction(bestAction)){
-					commandCenter.commandCall(bestAction.name()); // MCTSで選択された行動を実行する
-					logger.updateLog(rootNode.games);
-					if (FixParameter.DEBUG_MODE) {
-						mcts.printNode(rootNode);
-					}
-					rootNode = null;
-				}
+				
+				motionRecorder.runPdaForHealth();				
+				System.out.println("decision =" + motionRecorder.decision);				
+				if (motionRecorder.decision == false) {				
+					bestAction = mcts.runMcts(); // MCTSの実行
+				} else {
+					bestAction = PDAtrueAction;
+				}					
+
+
+
+					if(ableAction(bestAction)){
+						commandCenter.commandCall(bestAction.name()); // MCTSで選択された行動を実行する
+						logger.updateLog(rootNode.games);
+						if (FixParameter.DEBUG_MODE) {
+							mcts.printNode(rootNode);
+						}
+						rootNode = null;
+					}				
+
+				
 			}
 		} else {
 			canFC = true;
@@ -254,8 +271,6 @@ public class PDAFightingICE4H implements AIInterface {
 				myActions, oppActions, playerNumber);
 
 		mcts.createNode(rootNode);
-		//TODO readfile
-		mcts.readMotionDataFromFile();
 	}
 
 	/** 自身の可能な行動をセットする */

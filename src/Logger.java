@@ -65,9 +65,9 @@ public class Logger {
 
 		if (FixParameter.ACTION_LOG) {
 			int i = 0;
-			File actionFile = new File("./log/Action/Action" +"_"+ PDAFightingICE4H.class.getName() + (player?0:1) + "_" + i + ".txt");
+			File actionFile = new File("./log/Action/Action" +"_"+ PDAFightingICE4H_MIGver.class.getName() + (player?0:1) + "_" + i + ".txt");
 			while (actionFile.exists()) {
-				actionFile = new File("./log/Action/Action" +"_"+ PDAFightingICE4H.class.getName() + (player?0:1) + "_" + i + ".txt");
+				actionFile = new File("./log/Action/Action" +"_"+ PDAFightingICE4H_MIGver.class.getName() + (player?0:1) + "_" + i + ".txt");
 				i++;
 			}
 			try {
@@ -89,9 +89,9 @@ public class Logger {
 		}
 		if (FixParameter.PLAY_FEATURE_LOG) {
 			int i = 0;
-			File playarcFile = new File("./log/Playarc/Playarc" +"_"+ PDAFightingICE4H.class.getName() + (player?0:1)  + "_" + i + ".txt");
+			File playarcFile = new File("./log/Playarc/Playarc" +"_"+ PDAFightingICE4H_MIGver.class.getName() + (player?0:1)  + "_" + i + ".txt");
 			while (playarcFile.exists()) {
-				playarcFile = new File("./log/Playarc/Playarc" +"_"+ PDAFightingICE4H.class.getName() + (player?0:1)  + "_" + i + ".txt");
+				playarcFile = new File("./log/Playarc/Playarc" +"_"+ PDAFightingICE4H_MIGver.class.getName() + (player?0:1)  + "_" + i + ".txt");
 				i++;
 			}
 			try {
@@ -107,9 +107,9 @@ public class Logger {
 		}
 		if (FixParameter.SEARCHNUM_LOG) {
 			int i = 0;
-			File playarcFile = new File("./log/searchNum/searchNum" +"_"+ PDAFightingICE4H.class.getName() + (player?0:1)  + "_" + i + ".txt");
+			File playarcFile = new File("./log/searchNum/searchNum" +"_"+ PDAFightingICE4H_MIGver.class.getName() + (player?0:1)  + "_" + i + ".txt");
 			while (playarcFile.exists()) {
-				playarcFile = new File("./log/searchNum/searchNum" +"_"+ PDAFightingICE4H.class.getName() + (player?0:1)  + "_" + i + ".txt");
+				playarcFile = new File("./log/searchNum/searchNum" +"_"+ PDAFightingICE4H_MIGver.class.getName() + (player?0:1)  + "_" + i + ".txt");
 				i++;
 			}
 			try {

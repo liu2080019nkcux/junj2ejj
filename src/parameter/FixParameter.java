@@ -44,7 +44,7 @@ public class FixParameter {
 	public static final boolean NORMALIZED_FLAG = true;
 
 	/** 予測をするかどうかを管理するフラグ */
-	public static final boolean PREDICT_FLAG = true;
+	public static final boolean PREDICT_FLAG = false;
 
 	/** 回避行動をするかどうかを管理するフラグ */
 	public static final boolean AVOID_FLAG = false;
