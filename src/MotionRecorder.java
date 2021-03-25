@@ -94,7 +94,7 @@ public class MotionRecorder {
 			
 		//PDA addition start
 		playerTakingAction = readCMD(cmdFile);
-		System.out.println("playerTakingAction = " + playerTakingAction);
+		//System.out.println("playerTakingAction = " + playerTakingAction);
 		readMotionTable();
 		//if actionNumber = -1 then they didn't get the new motion
 		if (actionNumber != -1) {
@@ -117,7 +117,7 @@ public class MotionRecorder {
 				
 				
 				line = br.readLine();
-				System.out.println("succeed read file");
+				//System.out.println("succeed read file");
 				// 1行ごとにString[]化、リストstrに追加
 				while (true) {
 
@@ -167,7 +167,7 @@ public class MotionRecorder {
 			String output;
 			if (reader.ready()) {
 				output = reader.readLine();
-			System.out.println("read from CMD " + output);
+			//System.out.println("read from CMD " + output);
 			} else {
 				output = "STAND";
 			}
@@ -192,7 +192,7 @@ public class MotionRecorder {
 			//System.out.println("m= " +movementNameList[counter].substring(1));
 			
 			if (this.playerTakingAction.equals(MotionName[counter])) {
-				System.out.println("get action " + counter);	
+				//System.out.println("get action " + counter);	
 				this.actionNumber = counter;
 			} else {
 				//System.out.println("no");						
@@ -239,8 +239,8 @@ public class MotionRecorder {
 		
 		totalBalance = legBalance + wristBalance;
 		
-		System.out.println("legBalance = " + legBalance + " " + "wristBalance = " + wristBalance + " " + "totalBalance = " + totalBalance + " ");
-		System.out.println(actionNumber + " = " + MotionEffect[actionNumber]);
+		//System.out.println("legBalance = " + legBalance + " " + "wristBalance = " + wristBalance + " " + "totalBalance = " + totalBalance + " ");
+		//System.out.println(actionNumber + " = " + MotionEffect[actionNumber]);
 		// find player's motion's effect 
 		//0 none
 		//1 right leg
@@ -254,49 +254,49 @@ public class MotionRecorder {
 		{
 			if (legBalance <= 0) {
 				intProb = 90 -  wristBalance / controlParameter + legBalance / controlParameter;
-				System.out.println("healthy right leg motion");
-				System.out.println("calculated prob = " + intProb);
+				//System.out.println("healthy right leg motion");
+				//System.out.println("calculated prob = " + intProb);
 			} else if (legBalance > 0) 
 			{
 				intProb = 10 + wristBalance / controlParameter + legBalance / controlParameter;	
-				System.out.println("unhealthy right leg motion");		
-				System.out.println("calculated prob = " + intProb);
+				//System.out.println("unhealthy right leg motion");		
+				//System.out.println("calculated prob = " + intProb);
 			}
 		} else if (MotionEffect[actionNumber] == 2)
 		{
 			if (legBalance >= 0) {
 				intProb = 90 - wristBalance / controlParameter - legBalance / controlParameter;
-				System.out.println("healthy left leg motion");
-				System.out.println("calculated prob = " + intProb);
+				//System.out.println("healthy left leg motion");
+				//System.out.println("calculated prob = " + intProb);
 			} else if (legBalance < 0) 
 			{
 				intProb = 10 + wristBalance / controlParameter - legBalance / controlParameter;	
-				System.out.println("unhealthy left leg motion");	
-				System.out.println("calculated prob = " + intProb);
+				//System.out.println("unhealthy left leg motion");	
+				//System.out.println("calculated prob = " + intProb);
 			}
 		} else if (MotionEffect[actionNumber] == 3)
 		{
 			if (legBalance <= 0) {
 				intProb = 90 - legBalance / controlParameter + wristBalance / controlParameter;
-				System.out.println("healthy right wrist motion");
-				System.out.println("calculated prob = " + intProb);
+				//System.out.println("healthy right wrist motion");
+				//System.out.println("calculated prob = " + intProb);
 			} else if (legBalance > 0) 
 			{
 				intProb = 10 + legBalance / controlParameter + wristBalance / controlParameter;	
-				System.out.println("unhealthy right wrist motion");		
-				System.out.println("calculated prob = " + intProb);
+//				System.out.println("unhealthy right wrist motion");		
+//				System.out.println("calculated prob = " + intProb);
 			}			
 		} else if (MotionEffect[actionNumber] == 4)
 		{
 			if (legBalance >= 0) {
 				intProb = 90 - legBalance / controlParameter - wristBalance / controlParameter;
-				System.out.println("healthy left wrist motion");
-				System.out.println("calculated prob = " + intProb);
+//				System.out.println("healthy left wrist motion");
+//				System.out.println("calculated prob = " + intProb);
 			} else if (legBalance < 0) 
 			{
 				intProb = 10 + legBalance / controlParameter - wristBalance / controlParameter;	
-				System.out.println("unhealthy left wrist motion");	
-				System.out.println("calculated prob = " + intProb);
+//				System.out.println("unhealthy left wrist motion");	
+//				System.out.println("calculated prob = " + intProb);
 			}			
 		} else 
 		{
@@ -304,7 +304,7 @@ public class MotionRecorder {
 		}
 		
 			prob = (float)intProb / 100.0f;
-			System.out.println("prob = " + prob);
+//			System.out.println("prob = " + prob);
 		
 		this.actionNumber = -1;//initialize actionNumber
 		
@@ -324,8 +324,8 @@ public class MotionRecorder {
 	public boolean decideOpponentAttitude(float prob){
 		float point = (float) Math.random();
 		//TODO DEBUG
-		System.out.println("point =" + point);
-		System.out.println("prob =" + prob);
+//		System.out.println("point =" + point);
+//		System.out.println("prob =" + prob);
 				
 		if (point < prob && point > 0) {
 			return true;

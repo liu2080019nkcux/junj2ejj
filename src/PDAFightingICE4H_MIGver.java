@@ -59,6 +59,7 @@ public class PDAFightingICE4H_MIGver implements AIInterface {
 
 	/** STAND_D_DF_FCの回避行動時間を計測する */
 	public long firstFcTime;
+	
 
 	public ArrayList<MotionData>  myMotion;
 
@@ -116,6 +117,7 @@ public class PDAFightingICE4H_MIGver implements AIInterface {
 		
 		logger = new Logger(playerNumber);
 	
+		
 		motionRecorder = new MotionRecorder();
 		
 		//PDA initialize
@@ -189,24 +191,21 @@ public class PDAFightingICE4H_MIGver implements AIInterface {
 				}
 				
 				// MCTSによる行動決定
-				Action bestAction = Action.STAND_D_DB_BA;
+				Action bestAction = Action.STAND;
 				//or decided by PDA's decision
 				float point = (float) Math.random();
 				Action PDAtrueAction = Action.DASH;
-				if (point <= 0.4f) {
+				if (point <= 0.1f) {
 					PDAtrueAction = Action.DASH;				
-				} else if (point > 0.4f && point < 0.6f){
-					PDAtrueAction = Action.JUMP;
 				} else {
 					PDAtrueAction = Action.FORWARD_WALK;
 				}
 
 				if(rootNode == null){
 					mctsPrepare(); // MCTSの下準備を行う
-				}
-				
+				}				
 				motionRecorder.runPdaForHealth();				
-				System.out.println("decision =" + motionRecorder.decision);				
+				//System.out.println("decision =" + motionRecorder.decision);				
 				if (motionRecorder.decision == false) {				
 					bestAction = mcts.runMcts(); // MCTSの実行
 				} else {
