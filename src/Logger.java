@@ -34,7 +34,7 @@ public class Logger {
 			searchNum_Log = new ArrayList<Integer>();
 			new File("./log/searchNum").mkdir();
 		}
-		
+
 	}
 
 	/**

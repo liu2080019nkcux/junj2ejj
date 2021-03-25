@@ -65,7 +65,6 @@ public class PDAFightingICE4H_MIGver implements AIInterface {
 
 	public ArrayList<MotionData>  oppMotion;
 
-	public Action spSkill;
 
 	public Node rootNode;
 
@@ -98,7 +97,6 @@ public class PDAFightingICE4H_MIGver implements AIInterface {
 		this.oppCharacter = this.frameData.getCharacter(!playerNumber);
 	}
 	
-	private static FileWriter csvWriter = null;
 
 	@Override
 	public int initialize(GameData gameData, boolean playerNumber) {
@@ -286,10 +284,6 @@ public class PDAFightingICE4H_MIGver implements AIInterface {
 				}
 			}
 		} else {
-			if (Math.abs(
-					myMotion.get(Action.valueOf(spSkill.name()).ordinal()).getAttackStartAddEnergy()) <= energy) {
-				myActions.add(spSkill);
-			}
 
 			for (int i = 0; i < actionGround.length; i++) {
 				if (Math.abs(myMotion.get(Action.valueOf(actionGround[i].name()).ordinal())
@@ -315,10 +309,7 @@ public class PDAFightingICE4H_MIGver implements AIInterface {
 				}
 			}
 		} else {
-			if (Math.abs(oppMotion.get(Action.valueOf(spSkill.name()).ordinal())
-					.getAttackStartAddEnergy()) <= energy) {
-				oppActions.add(spSkill);
-			}
+
 
 			for (int i = 0; i < actionGround.length; i++) {
 				if (Math.abs(oppMotion.get(Action.valueOf(actionGround[i].name()).ordinal())
@@ -339,15 +330,22 @@ public class PDAFightingICE4H_MIGver implements AIInterface {
 
 	/** アクションの配列の初期化 */
 	private void setPerformAction() {
-		actionAir = new Action[] { Action.AIR_GUARD, Action.AIR_A, Action.AIR_B, Action.AIR_DA, Action.AIR_DB,
-				Action.AIR_FA, Action.AIR_FB, Action.AIR_UA, Action.AIR_UB, Action.AIR_D_DF_FA, Action.AIR_D_DF_FB,
-				Action.AIR_F_D_DFA, Action.AIR_F_D_DFB, Action.AIR_D_DB_BA, Action.AIR_D_DB_BB };
-		actionGround = new Action[] { Action.STAND_D_DB_BA, Action.BACK_STEP, Action.FORWARD_WALK, Action.DASH,
-				Action.JUMP, Action.FOR_JUMP, Action.BACK_JUMP, Action.STAND_GUARD, Action.CROUCH_GUARD, Action.THROW_A,
-				Action.THROW_B, Action.STAND_A, Action.STAND_B, Action.CROUCH_A, Action.CROUCH_B, Action.STAND_FA,
-				Action.STAND_FB, Action.CROUCH_FA, Action.CROUCH_FB, Action.STAND_D_DF_FA, Action.STAND_D_DF_FB,
-				Action.STAND_F_D_DFA, Action.STAND_F_D_DFB, Action.STAND_D_DB_BB };
-		spSkill = Action.STAND_D_DF_FC;
+//		actionAir = new Action[] { Action.AIR_GUARD, Action.AIR_A, Action.AIR_B, Action.AIR_DA, Action.AIR_DB,
+//				Action.AIR_FA, Action.AIR_FB, Action.AIR_UA, Action.AIR_UB, Action.AIR_D_DF_FA, Action.AIR_D_DF_FB,
+//				Action.AIR_F_D_DFA, Action.AIR_F_D_DFB, Action.AIR_D_DB_BA, Action.AIR_D_DB_BB };
+//		actionGround = new Action[] { Action.STAND_D_DB_BA, Action.BACK_STEP, Action.FORWARD_WALK, Action.DASH,
+//				Action.JUMP, Action.FOR_JUMP, Action.BACK_JUMP, Action.STAND_GUARD, Action.CROUCH_GUARD, Action.THROW_A,
+//				Action.THROW_B, Action.STAND_A, Action.STAND_B, Action.CROUCH_A, Action.CROUCH_B, Action.STAND_FA,
+//				Action.STAND_FB, Action.CROUCH_FA, Action.CROUCH_FB, Action.STAND_D_DF_FA, Action.STAND_D_DF_FB,
+//				Action.STAND_F_D_DFA, Action.STAND_F_D_DFB, Action.STAND_D_DB_BB };
+//		spSkill = Action.STAND_D_DF_FC;
+		
+		actionAir = new Action[] {};
+		actionGround = new Action[] {  Action.BACK_STEP, Action.FORWARD_WALK, Action.DASH,
+				Action.JUMP,Action.STAND_GUARD,
+				 Action.STAND_A, Action.STAND_B, Action.CROUCH_B, Action.STAND_FA,
+				Action.STAND_FB, Action.CROUCH_FA, Action.CROUCH_FB, Action.STAND_D_DF_FA
+				};
 	}
 
 	/**
